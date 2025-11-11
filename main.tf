@@ -29,7 +29,8 @@ resource "aws_instance" "blog" {
 }
 
 resource "aws_security_group" "blog" {
-  name = "blog"
+  name        = "blog"
+  description = "Al.ow http and https in. Allow Everything out"
   tags = {
     Terraform = "true"
   }
