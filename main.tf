@@ -21,12 +21,27 @@ data "aws_vpc" "default" {
 resource "aws_instance" "web_test" {
   ami                    = data.aws_ami.app_ami.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [aws_security_group.web_test.id]
+  vpc_security_group_ids = [module.web_test_sg.security_group_id]
 
   tags = {
     Name = "Learning Terraform_Test"
   }
 }
+
+module "web_test_sg" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "5.3.1"
+  name = "web_test_new"
+
+  vpc_id = data.aws_vpc.default.id
+  
+  ingress_rules     = ["http-80-tcp", "https-443-tcp"]
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+
+  egress_rules     = ["all-all"]
+  egress_cidr_blocks = ["0.0.0.0/0"]
+}
+
 
 resource "aws_security_group" "web_test" {
   name        = "web_test"
