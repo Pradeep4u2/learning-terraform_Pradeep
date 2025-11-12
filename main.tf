@@ -50,7 +50,7 @@ module "web_test_sg" {
   version = "5.3.1"
   name = "web_test"
 
-  vpc_id = module.web_test_vpc_id
+  vpc_id = module.web_test_vpc.vpc_id
   
   ingress_rules     = ["http-80-tcp", "https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
