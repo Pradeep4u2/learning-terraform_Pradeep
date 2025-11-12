@@ -72,7 +72,7 @@ module "blog-alb" {
     }
   }
 
-  target_groups = [
+  target_groups = {
     {
       name_prefix      = "blog"
       protocol         = "HTTP"
@@ -80,7 +80,7 @@ module "blog-alb" {
       target_type      = "instance"
       target_id        = aws.instance.blog.id
     }
-  ]
+  }
 
   tags = {
     Environment = "Dev"
