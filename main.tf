@@ -48,7 +48,7 @@ resource "aws_instance" "web_test" {
 module "web_test_alb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name    = "web_test_alb-alb"
+  name    = "web_test_alb"
   vpc_id  = module.web_test_vpc.vpc_id
   subnets = module.web_test_vpc.public_subnets
   security_groups = [module.web_test_sg.security_group_id]
