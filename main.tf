@@ -56,7 +56,7 @@ module "autoscaling" {
   # insert the 1 required variable here
 }
 
-module "blog_alb" {
+module "blog-alb" {
   source = "terraform-aws-modules/alb/aws"
 
   name    = "blog-alb"
@@ -64,19 +64,21 @@ module "blog_alb" {
   subnets = module.blog_vpc.public_subnets
   security_groups = [module.blog_sg.security_group_id]
 
-  http_tcp_listeners = {
-    port     = 80
-    protocol = "HTTP"
-    target_group_index = 0
+  listeners = {
+    http = {
+      port     = 80
+      protocol = "HTTP"
+      }
     }
+  }
 
   target_groups = [
-  {
+    {
       name_prefix      = "blog"
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
-      target_id        = "aws_instance.blog.id"
+      target_id        = aws.instance.blog.id
     }
   ]
 
@@ -85,6 +87,7 @@ module "blog_alb" {
     Project     = "Example"
   }
 }
+
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.3.1"
