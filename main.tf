@@ -58,7 +58,7 @@ module "autoscaling" {
 
 module "alb" {
   source = "terraform-aws-modules/alb/aws"
-
+  
   name    = "blog-alb"
   vpc_id  = module.blog_vpc.vpc_id
   subnets = module.blog_vpc.public_subnets
@@ -72,7 +72,7 @@ module "alb" {
     }
 
   target_groups = {
-    {
+    my_target = {
       name_prefix      = "blog"
       protocol         = "HTTP"
       port             = 80
