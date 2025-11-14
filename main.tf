@@ -48,11 +48,6 @@ module "autoscaling" {
   instance_type = var.instance_type
 }
 
-resource "aws_autoscaling_attachment" "asg_alb" {
-  autoscaling_group_name = module.autoscaling.autoscaling_group_name
-  lb_target_group_arn    = module.blog_alb.target_groups["my_target"].arn
-}
-
 module "blog_alb" {
   source = "terraform-aws-modules/alb/aws"
   
