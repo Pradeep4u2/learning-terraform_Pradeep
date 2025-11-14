@@ -1,5 +1,4 @@
 module "blog_ec2" {
-  source = "./modules/blog_ec2"
 
   count = var.instance_count
   ami           = var.ami
