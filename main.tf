@@ -57,7 +57,7 @@ module "blog_alb" {
   subnets = module.blog_vpc.public_subnets
   security_groups = [module.blog_sg.security_group_id]
 
-listeners = {
+  listeners = {
     ex-http-https-redirect = {
       port     = 80
       protocol = "HTTP"
@@ -67,23 +67,22 @@ listeners = {
         status_code = "HTTP_301"
       }
     }
+
     ex-https = {
       port            = 443
       protocol        = "HTTPS"
-      certificate_arn = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012"
-
-      forward = {
-        target_group_key = "my_target"
-      }
+      certificate_arn = aws_acm_certificate.blog_cert.arn
+      action_type     = "forward"
+      target_group_index = 0
     }
   }
 
   target_groups = {
     my_target = {
-      name_prefix      = "blog"
-      protocol         = "HTTP"
-      port             = 80
-      target_type      = "instance"
+      name_prefix = "blog"
+      protocol    = "HTTP"
+      port        = 80
+      target_type = "instance"
     }
   }
 
