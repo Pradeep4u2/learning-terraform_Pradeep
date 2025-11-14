@@ -60,7 +60,7 @@ module "blog_alb_test" {
 
   target_groups = [
     {
-      name_prefix      = "blog"
+      name_prefix      = "blog_tg"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
