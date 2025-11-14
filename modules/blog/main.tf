@@ -60,11 +60,10 @@ module "blog_alb" {
 
   target_groups = {
     my_target = {
-      name_prefix      = "h1"
+      name_prefix      = "${var.environment.name}-tg"
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
-      target_id        = module.blog_alb.target_id
     }
   }
 
