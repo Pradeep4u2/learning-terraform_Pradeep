@@ -65,7 +65,6 @@ module "blog_alb" {
       protocol    = "HTTP"
       port        = 80
       target_type = "instance"
-      target_id   = [module.blog_alb.target_id]
     }
   }
 
@@ -82,6 +81,12 @@ module "blog_alb" {
     Environment = var.environment.name
   }
 }
+
+resource "aws_autoscaling_attachment" "asg_attachment" {
+  autoscaling_group_name = module.blog_autoscaling.autoscaling_group_name
+  alb_target_group_arn   = module.blog_alb.target_groups["blog_tg"].arn
+}
+
 
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
