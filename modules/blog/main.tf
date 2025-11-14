@@ -63,7 +63,7 @@ target_groups = {
     port        = 80
     protocol    = "HTTP"
     target_type = "instance"
-    target_id   = module.blog_alb.target_id
+    target_id   = module.blog_alb.lb_target_group_arn
   }
 }
 
