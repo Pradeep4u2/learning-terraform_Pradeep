@@ -48,7 +48,7 @@ module "blog_autoscaling" {
 }
 
 module "blog_ec2" {
-  source = "../modules/blog_ec2"
+  source = "./modules/blog_ec2"
 }
 
 module "blog_alb" {
