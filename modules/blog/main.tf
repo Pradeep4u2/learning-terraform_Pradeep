@@ -63,18 +63,20 @@ target_groups = {
     port        = 80
     protocol    = "HTTP"
     target_type = "instance"
+    target_id   = module.blog_alb.target_id
   }
 }
 
   listeners = {
-  http = {
-    port = 80
-    protocol = "HTTP"
-    default_action = {
-      type             = "forward"
-      target_group_key = "blog_tg"  # reference the TG by its map key
+  ex-http-https-redirect = {
+      port     = 80
+      protocol = "HTTP"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
     }
-  }
 }
 }
 
