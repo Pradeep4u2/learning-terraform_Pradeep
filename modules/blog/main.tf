@@ -68,14 +68,13 @@ module "blog_alb" {
     }
   }
 
-  listeners = {
-    http = {
-      port     = 80
-      protocol = "HTTP"
-      action_type = "forward"
-      target_group_name = "blog_tg"
+  http_tcp_listeners = [
+     {
+      port               = 443
+      protocol           = "HTTP"
+      target_group_index = 0
     }
-  }
+  ]
 
   tags = {
     Environment = var.environment.name
