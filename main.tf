@@ -50,7 +50,7 @@ module "blog_alb_test" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 6.0"
 
-  name = "blog-alb_test"
+  name = "blog-alb-test"
 
   load_balancer_type = "application"
 
@@ -60,7 +60,7 @@ module "blog_alb_test" {
 
   target_groups = [
     {
-      name_prefix      = "blog-"
+      name_prefix      = "blog"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
