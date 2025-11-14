@@ -49,34 +49,33 @@ module "blog_autoscaling" {
 
 module "blog_alb" {
   source  = "terraform-aws-modules/alb/aws"
-  version = "8.4.0"
+  version = "10.2.0" # upgrade from 8.4.0
 
   name               = "${var.environment.name}-blog-alb"
   load_balancer_type = "application"
-
-  vpc_id          = module.blog_vpc.vpc_id
-  subnets         = module.blog_vpc.public_subnets
-  security_groups = [module.blog_sg.security_group_id]
+  vpc_id             = module.blog_vpc.vpc_id
+  subnets            = module.blog_vpc.public_subnets
+  security_groups    = [module.blog_sg.security_group_id]
 
   target_groups = [
     {
-      name_prefix = "blog"
-      protocol    = "HTTP"
-      target_type = "instance"
+      name_prefix  = "blog"
+      port         = 80
+      protocol     = "HTTP"
+      target_type  = "instance"
     }
   ]
 
-  http_tcp_listeners = [
+  listeners = [
     {
-      port               = 80
-      protocol           = "HTTP"
-      target_group_index = 0  # index of the first target group in target_groups
+      port     = 80
+      protocol = "HTTP"
+      default_action = [{
+        type             = "forward"
+        target_group_key = 0
+      }]
     }
   ]
-
-  tags = {
-    Environment = var.environment.name
-  }
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment" {
