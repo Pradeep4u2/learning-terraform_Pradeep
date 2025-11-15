@@ -90,10 +90,6 @@ output "alb_dns_name" {
   value = module.blog_alb.dns_name
 }
 
-output "target_group_arns" {
-  value = module.blog_alb.target_group_arns
-}
-
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.13.0"
