@@ -58,6 +58,8 @@ module "blog_alb" {
   subnets            = module.blog_vpc.public_subnets
   security_groups    = [module.blog_sg.security_group_id]
 
+  create_target_group_attachment = false
+  
 target_groups = {
   blog_tg = {
     name_prefix = "blog"
