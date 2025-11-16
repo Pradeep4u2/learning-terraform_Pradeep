@@ -18,7 +18,7 @@ variable "instance_type" {
 }
 
 variable environment {
-  description = "Development Envirpnment"
+  description = "Development Environment"
 
   type = object ({
   name = string
