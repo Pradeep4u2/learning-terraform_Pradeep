@@ -21,19 +21,18 @@ module "blog_vpc" {
   name = var.environment.name
   cidr = "${var.environment.network_prefix}.0.0/16"
 
-  azs             = ["us-west-2a","us-west-2b","us-west-2c"]
+  azs            = ["us-west-2a","us-west-2b","us-west-2c"]
   public_subnets = [
-    "${var.environment.network_prefix}.0.1/24",
-    "${var.environment.network_prefix}.0.2/24",
-    "${var.environment.network_prefix}.0.3/24"
+    "${var.environment.network_prefix}.0.0/24",
+    "${var.environment.network_prefix}.1.0/24",
+    "${var.environment.network_prefix}.2.0/24"
   ]
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = var.environment.name
   }
 }
-
 
 module "blog_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
