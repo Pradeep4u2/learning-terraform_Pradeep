@@ -3,9 +3,9 @@ module "qa" {
 
     environment = {
         name = "qa"
-        network_prefix = "10.1"
+        network_prefix = "10.1" # new subnet value for qa 
     }
 
-    asg_min_size = 0
-    asg_max_size = 0
+  asg_min_size = 0
+  asg_max_size = 0
 }
