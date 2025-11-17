@@ -45,9 +45,12 @@ module "blog_autoscaling" {
   vpc_zone_identifier = module.blog_vpc.public_subnets
   security_groups     = [module.blog_sg.security_group_id]
 
-  instance_type = var.instance_type
-  image_id      = data.aws_ami.app_ami.id
-  associate_public_ip_address  = true   # <--- Required for public DNS
+  # Launch Template definition
+  launch_template = {
+    instance_type                = var.instance_type
+    image_id                     = data.aws_ami.app_ami.id
+    associate_public_ip_address  = true  # <--- Correct location
+  }
 
 }
 
