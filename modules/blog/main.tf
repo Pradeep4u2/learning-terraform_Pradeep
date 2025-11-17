@@ -47,6 +47,7 @@ module "blog_autoscaling" {
 
   instance_type = var.instance_type
   image_id      = data.aws_ami.app_ami.id
+  associate_public_ip_address  = true   # <--- Required for public DNS
 
 }
 
