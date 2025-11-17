@@ -1,3 +1,3 @@
 output "Environment_URL" {
-  value = module.dev.Environment_URL # dev url updated for output
+  value = module.dev.Environment_URL # dev url updated
 }
