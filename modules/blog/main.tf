@@ -49,7 +49,6 @@ module "blog_autoscaling" {
 
   image_id           = data.aws_ami.app_ami.id
   instance_type      = var.instance_type
-  associate_public_ip_address = true
 
   tags = {
     Environment = var.environment.name
