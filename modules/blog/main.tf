@@ -38,20 +38,23 @@ module "blog_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "9.0.2"
 
-  name = "${var.environment.name}-blog"
-
+  name                = "${var.environment.name}-blog"
   min_size            = var.asg_min_size
   max_size            = var.asg_max_size
+  # optional:
+  desired_capacity    = var.asg_desired  # if you have it
+
   vpc_zone_identifier = module.blog_vpc.public_subnets
-  security_groups     = [module.blog_sg.security_group_id]
+  security_groups     = [ module.blog_sg.security_group_id ]
 
-  # Launch Template definition
-  launch_template = {
-    instance_type                = var.instance_type
-    image_id                     = data.aws_ami.app_ami.id
-    associate_public_ip_address  = true  # <--- Correct location
+  image_id           = data.aws_ami.app_ami.id
+  instance_type      = var.instance_type
+  associate_public_ip_address = true
+
+  tags = {
+    Environment = var.environment.name
+    Terraform   = "true"
   }
-
 }
 
 
